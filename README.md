@@ -24,3 +24,16 @@ docker run --rm hello-world .  # container will remove after stopping
 docker compose up -d
 docker compose down
 docker compose down -v # del volume with data. must be careful
+
+
+
+Раз в несколько недель или после активных экспериментов можешь запускать:
+docker system df
+
+
+Чтобы удалить ненужный кэш сборки:
+docker builder prune
+
+
+А для более широкой очистки:
+docker system prune
