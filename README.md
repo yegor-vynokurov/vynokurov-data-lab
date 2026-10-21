@@ -1,1 +1,20 @@
 # vynokurov-data-lab
+
+docker build -t practice-postgres:1.0 . # build the container with tag -t and in the . current dir
+
+
+
+docker run -d --name practice-postgres -e POSTGRES_PASSWORD= -p 5434:5432 practice-postgres:1.0 # run the container
+
+docker exec -it practice-postgres psql -U student -d practice # interacitve mode
+
+
+docker ps -a # all containers and stopped
+
+docker stop practice-postgres # by name
+
+docker rmi nginx # remove image without containers
+
+docker rm -f web # stop and remove working container
+
+docker run --rm hello-world .  # container will remove after stopping
