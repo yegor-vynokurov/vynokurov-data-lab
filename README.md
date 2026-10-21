@@ -18,3 +18,9 @@ docker rmi nginx # remove image without containers
 docker rm -f web # stop and remove working container
 
 docker run --rm hello-world .  # container will remove after stopping
+
+
+
+docker compose up -d
+docker compose down
+docker compose down -v # del volume with data. must be careful
