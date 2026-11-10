@@ -5,40 +5,32 @@ CREATE TABLE categories (
     name     text NOT NULL UNIQUE
 );
 
-INSERT INTO categories (name)
-VALUES ('Смартфони'),
-('Навушники'),
-('Розумні годинники'),
-('Ноутбуки'),
-('Планшети');
-
 ALTER TABLE products ADD COLUMN category_id bigint REFERENCES categories (category_id) ON DELETE RESTRICT;
 
-UPDATE products
-SET category_id = 1
-WHERE category = 'Смартфони';
 
-UPDATE products
-SET category_id = 2
-WHERE category = 'Навушники';
+WITH new_categories AS (
+    INSERT INTO categories (name)
+    VALUES
+        ('Смартфони'),
+        ('Навушники'),
+        ('Розумні годинники'),
+        ('Ноутбуки'),
+        ('Планшети')
+    RETURNING category_id, name
+)
 
-UPDATE products
-SET category_id = 3
-WHERE category = 'Розумні годинники';
 
-UPDATE products
-SET category_id = 4
-WHERE category = 'Ноутбуки';
+UPDATE products AS p
+SET category_id = c.category_id
+FROM new_categories AS c
+WHERE p.category = c.name;
 
-UPDATE products
-SET category_id = 5
-WHERE category = 'Планшети';
+
 
 ALTER TABLE products ALTER COLUMN category_id SET NOT NULL;
 
 ALTER TABLE products DROP COLUMN category;
 
 COMMIT;
-
 
 
